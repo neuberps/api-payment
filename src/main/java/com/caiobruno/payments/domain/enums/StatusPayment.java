@@ -1,9 +1,9 @@
 package com.caiobruno.payments.domain.enums;
 
 public enum StatusPayment {
-    WAITING_PAYMENT(0),
-    PAID(1),
-    CANCELED(2);
+    WAITING_PAYMENT(1),
+    PAID(2),
+    CANCELED(3);
 
     private int code ;
 

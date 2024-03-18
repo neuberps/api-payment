@@ -20,7 +20,7 @@ public class PaymentService {
 
     @Transactional
     public PaymentDTO created(Payment entity) throws ServiceException {
-        entity.setTransactionDate(LocalDateTime.now());
+        entity.setCreated(LocalDateTime.now().toString());
         Payment payment =  repository.save(entity);
         return new PaymentDTO(payment);
     }
@@ -50,7 +50,7 @@ public class PaymentService {
         entity.setIdProduct(paymentDTO.getIdProduct());
         entity.setValue(paymentDTO.getValue());
         entity.setPaymentMethod(paymentDTO.getPaymentMethod());
-        entity.setTransactionDate(LocalDateTime.now());
+        entity.setUpdated(LocalDateTime.now().toString());
         entity.setStatus(paymentDTO.getStatus());
         repository.save(entity);
         return new PaymentDTO(entity);

@@ -2,9 +2,10 @@ package com.caiobruno.payments.domain.enums;
 
 public enum PaymentMethod {
 
-    card(0),
-    pix(1),
-    ticket(2);
+    CARD(1),
+    PIX(2),
+    TICKET(3);
+
 
     private int code ;
 

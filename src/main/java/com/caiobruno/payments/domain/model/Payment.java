@@ -24,9 +24,10 @@ public class Payment {
     private String idProduct;
     private String idUser;
     private BigDecimal value;
-    private PaymentMethod paymentMethod;
-    private LocalDateTime transactionDate;
-    private StatusPayment status;
+    private Integer paymentMethod;
+    private String created;
+    private String updated;
+    private Integer status;
 
     public Payment (PaymentDTO paymentDTO){
         BeanUtils.copyProperties(paymentDTO, this);

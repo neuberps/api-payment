@@ -31,12 +31,13 @@ public class PaymentDTO {
     private BigDecimal value;
 
 
-    private PaymentMethod paymentMethod;
+    private Integer paymentMethod;
 
-    private LocalDateTime transactionDate;
+    private String created;
+    private String updated;
 
 
-    private StatusPayment status;
+    private Integer status;
 
     public PaymentDTO (Payment entity){
         BeanUtils.copyProperties(entity, this);
