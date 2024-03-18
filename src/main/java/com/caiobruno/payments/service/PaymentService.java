@@ -7,6 +7,7 @@ import com.caiobruno.payments.exceptions.ServiceException;
 import com.caiobruno.payments.repository.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,6 +18,7 @@ public class PaymentService {
     @Autowired
     PaymentRepository repository;
 
+    @Transactional
     public PaymentDTO created(Payment entity) throws ServiceException {
         entity.setTransactionDate(LocalDateTime.now());
         Payment payment =  repository.save(entity);
@@ -39,6 +41,7 @@ public class PaymentService {
                 .orElseThrow(() -> new PaymentNotFoundException("Client not found with ID: " + id));
     }
 
+    @Transactional
     public PaymentDTO update(String id, PaymentDTO paymentDTO) throws ServiceException{
 
         Payment entity = repository.findById(id).get();
@@ -56,7 +59,7 @@ public class PaymentService {
 
     public void delete(String id) throws ServiceException{
         if (!repository.existsById(id)) {
-            throw new PaymentNotFoundException("Client not found with ID: " + id);
+            throw new PaymentNotFoundException("Payment not found with ID: " + id);
         }
         repository.deleteById(id);
     }
