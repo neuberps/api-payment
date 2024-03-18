@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.math.BigDecimal;
 
 
 @SpringBootTest
@@ -32,7 +33,7 @@ public class PaymentControlerTest {
     @Autowired
     private PaymentControler controller;
 
-    PaymentDTO paymentsDTO = new PaymentDTO("2","1","1",700.50, PaymentMethod.valueOf(2), null, StatusPayment.valueOf(1) );
+    PaymentDTO paymentsDTO = new PaymentDTO("2","1","1",new BigDecimal("700.99"), PaymentMethod.valueOf(2), null, StatusPayment.valueOf(1) );
 
 
     @BeforeEach
@@ -79,7 +80,7 @@ public class PaymentControlerTest {
         log.info("testUpdatePayment");
         this.mockMvc.perform( MockMvcRequestBuilders
                         .put("/api/payments/" + paymentsDTO.getId())
-                        .content(asJsonString(new PaymentDTO(null,"2","3",1700.50,PaymentMethod.valueOf(3), null,StatusPayment.PAID )))
+                        .content(asJsonString(new PaymentDTO(null,"65f49a996c7faa406961ae8c","65f49a996c7faa406961ae8c",new BigDecimal("1699.99"),PaymentMethod.valueOf(2), null,StatusPayment.PAID )))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
