@@ -32,7 +32,7 @@ public class PaymentControlerTest {
     @Autowired
     private PaymentControler controller;
 
-    PaymentDTO paymentsDTO = new PaymentDTO("2","1","1",new BigDecimal("700.99"), PaymentMethod.TICKET.getCode(), null, null ,StatusPayment.CANCELED.getCode());
+    PaymentDTO paymentsDTO = new PaymentDTO("2","1","1",new BigDecimal("700.99"), PaymentMethod.TICKET.getId(), null, null ,StatusPayment.CANCELED.getId());
 
 
     @BeforeEach
@@ -64,7 +64,7 @@ public class PaymentControlerTest {
     }
 
     @Test
-    @Order(2)
+    @Order(3)
     public void testFindByIdPayment() throws Exception {
         log.info("testFindByIdPayment");
         this.mockMvc.perform(MockMvcRequestBuilders.get("/api/payments/" + paymentsDTO.getId()))
@@ -74,12 +74,12 @@ public class PaymentControlerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists());;
     }
     @Test
-    @Order(3)
+    @Order(4)
     public void testUpdatePayment() throws Exception {
         log.info("testUpdatePayment");
         this.mockMvc.perform( MockMvcRequestBuilders
                         .put("/api/payments/" + paymentsDTO.getId())
-                        .content(asJsonString(new PaymentDTO(null,"65f49a996c7faa406961ae8c","65f49a996c7faa406961ae8c",new BigDecimal("1699.99"),PaymentMethod.CARD.getCode(), null, null,StatusPayment.PAID.getCode())))
+                        .content(asJsonString(new PaymentDTO(null,"65f49a996c7faa406961ae8c","65f49a996c7faa406961ae8c",new BigDecimal("1699.99"),PaymentMethod.CARD.getId(), null, null,StatusPayment.PAID.getId())))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -89,7 +89,7 @@ public class PaymentControlerTest {
 
 
     @Test
-    @Order(4)
+    @Order(5)
     public void testStatusPayment() throws Exception {
         log.info("testFindAllPayment");
         this.mockMvc.perform(MockMvcRequestBuilders.get("/api/payments/statuspayment/" + paymentsDTO.getStatus()))
@@ -99,7 +99,7 @@ public class PaymentControlerTest {
     }
 
     @Test
-    @Order(5)
+    @Order(6)
     public void testMethodPayment() throws Exception {
         log.info("testFindAllPayment");
         this.mockMvc.perform(MockMvcRequestBuilders.get("/api/payments/methodpayment/" + paymentsDTO.getPaymentMethod()))
@@ -109,7 +109,27 @@ public class PaymentControlerTest {
     }
 
     @Test
-    @Order(6)
+    @Order(7)
+    public void testEnumsStatusPayment() throws Exception {
+        log.info("testFindAllPayment");
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/api/payments/liststauspayments"))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$").isNotEmpty());
+    }
+
+    @Test
+    @Order(8)
+    public void testEnumsPaymentMethod() throws Exception {
+        log.info("testFindAllPayment");
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/api/payments//listpaymentMethod"))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$").isNotEmpty());
+    }
+
+    @Test
+    @Order(9)
     public void testDelete() throws Exception {
         log.info("testDeletePayment");
         this.mockMvc.perform( MockMvcRequestBuilders

@@ -1,28 +1,23 @@
 package com.caiobruno.payments.domain.enums;
 
 public enum StatusPayment {
-    WAITING_PAYMENT(1),
-    PAID(2),
-    CANCELED(3);
+    WAITING_PAYMENT("1", "WAITING_PAYMENT"),
+    PAID("2", "PAID"),
+    CANCELED("3", "CANCELED");
 
-    private int code ;
+    private  String id;
+    private  String name;
 
-    private StatusPayment(int code ) {
-        this.code = code;
+    StatusPayment(String id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
-
-    public int getCode() {
-        return code ;
-
+    public String getId() {
+        return id;
     }
 
-    public static StatusPayment  valueOf(int code ) {
-        for (StatusPayment value : StatusPayment.values()) {
-            if(value.getCode() == code ) {
-                return value;
-            }
-        }
-        throw new IllegalArgumentException("Invalid order Satatus code");
+    public String getName() {
+        return name;
     }
 }
