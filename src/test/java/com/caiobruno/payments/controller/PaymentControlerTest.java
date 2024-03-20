@@ -26,7 +26,6 @@ import java.math.BigDecimal;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class PaymentControlerTest {
 
-
     private final Logger log = LoggerFactory.getLogger(this.getClass());
     private MockMvc mockMvc;
 
@@ -87,8 +86,30 @@ public class PaymentControlerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists());
     }
 
+
+
     @Test
     @Order(4)
+    public void testStatusPayment() throws Exception {
+        log.info("testFindAllPayment");
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/api/payments/statuspayment/" + paymentsDTO.getStatus()))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$").isNotEmpty());
+    }
+
+    @Test
+    @Order(5)
+    public void testMethodPayment() throws Exception {
+        log.info("testFindAllPayment");
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/api/payments/methodpayment/" + paymentsDTO.getPaymentMethod()))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$").isNotEmpty());
+    }
+
+    @Test
+    @Order(6)
     public void testDelete() throws Exception {
         log.info("testDeletePayment");
         this.mockMvc.perform( MockMvcRequestBuilders
@@ -98,7 +119,6 @@ public class PaymentControlerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").doesNotExist());
     }
-
 
     public static String asJsonString(final Object obj) {
         try {

@@ -56,11 +56,25 @@ public class PaymentService {
         return new PaymentDTO(entity);
 
     }
-
     public void delete(String id) throws ServiceException{
         if (!repository.existsById(id)) {
             throw new PaymentNotFoundException("Payment not found with ID: " + id);
         }
         repository.deleteById(id);
+    }
+    public List<PaymentDTO> findByStatus(Integer code) {
+        List<Payment> list = repository.findByStatus(code);
+        if (list.isEmpty()) {
+            throw new PaymentNotFoundException("Status not found!");
+        }
+        return list.stream().map(PaymentDTO::new).toList();
+    }
+
+    public List<PaymentDTO> findByMethod(Integer code) {
+        List<Payment> list = repository.findByPaymentMethod(code);
+        if (list.isEmpty()) {
+            throw new PaymentNotFoundException("Method not found!");
+        }
+        return list.stream().map(PaymentDTO::new).toList();
     }
 }

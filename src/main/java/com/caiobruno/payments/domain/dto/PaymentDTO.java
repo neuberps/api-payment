@@ -42,4 +42,5 @@ public class PaymentDTO {
     public PaymentDTO (Payment entity){
         BeanUtils.copyProperties(entity, this);
     }
+
 }

@@ -1,6 +1,7 @@
 package com.caiobruno.payments.controller;
 
 import com.caiobruno.payments.domain.dto.PaymentDTO;
+import com.caiobruno.payments.domain.enums.StatusPayment;
 import com.caiobruno.payments.domain.model.Payment;
 import com.caiobruno.payments.exceptions.ServiceException;
 import com.caiobruno.payments.service.PaymentService;
@@ -72,4 +73,28 @@ public class PaymentControler {
         }
     }
 
+    @GetMapping("/statuspayment/{code}")
+    public ResponseEntity<List<PaymentDTO>> findByStatus(@PathVariable Integer code) {
+        try{
+            List<PaymentDTO> categories = service.findByStatus(code);
+            if(categories.isEmpty()) {
+                return ResponseEntity.noContent().build();
+            }
+            return ResponseEntity.ok(categories);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+    @GetMapping("/methodpayment/{code}")
+    public ResponseEntity<List<PaymentDTO>> findByMethod(@PathVariable Integer code) {
+        try{
+            List<PaymentDTO> categories = service.findByMethod(code);
+            if(categories.isEmpty()) {
+                return ResponseEntity.noContent().build();
+            }
+            return ResponseEntity.ok(categories);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
 }
