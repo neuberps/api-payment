@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public interface PaymentRepository extends MongoRepository<Payment, String> {
-    List<Payment> findByStatus(Integer code);
+    List<Payment> findByStatus(String code);
 
-    List<Payment> findByPaymentMethod(Integer code);
+    List<Payment> findByPaymentMethod(String code);
 }

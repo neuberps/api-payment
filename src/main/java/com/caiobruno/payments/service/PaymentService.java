@@ -68,7 +68,7 @@ public class PaymentService {
         }
         repository.deleteById(id);
     }
-    public List<PaymentDTO> findByStatus(Integer code) throws ServiceException{
+    public List<PaymentDTO> findByStatus(String code) throws ServiceException{
         List<Payment> list = repository.findByStatus(code);
         if (list.isEmpty()) {
             throw new PaymentNotFoundException("Status not found!");
@@ -76,7 +76,7 @@ public class PaymentService {
         return list.stream().map(PaymentDTO::new).toList();
     }
 
-    public List<PaymentDTO> findByMethod(Integer code) throws ServiceException {
+    public List<PaymentDTO> findByMethod(String code) throws ServiceException {
         List<Payment> list = repository.findByPaymentMethod(code);
         if (list.isEmpty()) {
             throw new PaymentNotFoundException("Method not found!");

@@ -92,7 +92,7 @@ public class PaymentControlerTest {
     @Order(5)
     public void testStatusPayment() throws Exception {
         log.info("testFindAllPayment");
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/api/payments/statuspayment/" + paymentsDTO.getStatus()))
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/api/payments/statuspayment/2"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$").isNotEmpty());
@@ -102,7 +102,7 @@ public class PaymentControlerTest {
     @Order(6)
     public void testMethodPayment() throws Exception {
         log.info("testFindAllPayment");
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/api/payments/methodpayment/" + paymentsDTO.getPaymentMethod()))
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/api/payments/methodpayment/1"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$").isNotEmpty());
@@ -122,7 +122,7 @@ public class PaymentControlerTest {
     @Order(8)
     public void testEnumsPaymentMethod() throws Exception {
         log.info("testFindAllPayment");
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/api/payments//listpaymentMethod"))
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/api/payments/listpaymentMethod"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$").isNotEmpty());

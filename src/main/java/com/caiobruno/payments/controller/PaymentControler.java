@@ -77,7 +77,7 @@ public class PaymentControler {
     }
 
     @GetMapping("/statuspayment/{code}")
-    public ResponseEntity<List<PaymentDTO>> findByStatus(@PathVariable Integer code) {
+    public ResponseEntity<List<PaymentDTO>> findByStatus(@PathVariable String code) {
         try {
             List<PaymentDTO> categories = service.findByStatus(code);
             if (categories.isEmpty()) {
@@ -90,7 +90,7 @@ public class PaymentControler {
     }
 
     @GetMapping("/methodpayment/{code}")
-    public ResponseEntity<List<PaymentDTO>> findByMethod(@PathVariable Integer code) {
+    public ResponseEntity<List<PaymentDTO>> findByMethod(@PathVariable String code) {
         try {
             List<PaymentDTO> categories = service.findByMethod(code);
             if (categories.isEmpty()) {
