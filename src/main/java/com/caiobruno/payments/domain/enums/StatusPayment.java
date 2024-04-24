@@ -1,9 +1,9 @@
 package com.caiobruno.payments.domain.enums;
 
 public enum StatusPayment {
-    WAITING_PAYMENT("1", "WAITING_PAYMENT"),
-    PAID("2", "PAID"),
-    CANCELED("3", "CANCELED");
+    WAITING_PAYMENT("1", "Aguardando pagamento"),
+    PAID("2", "Pago"),
+    CANCELED("3", "Cancelado");
 
     private  String id;
     private  String name;
