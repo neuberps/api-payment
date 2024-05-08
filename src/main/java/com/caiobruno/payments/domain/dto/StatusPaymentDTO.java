@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class StatusPaymentDTO {
 
-    @JsonProperty("id")
     private  String id;
     private  String name;
 

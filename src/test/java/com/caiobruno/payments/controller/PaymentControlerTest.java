@@ -32,7 +32,7 @@ public class PaymentControlerTest {
     @Autowired
     private PaymentControler controller;
 
-    PaymentDTO paymentsDTO = new PaymentDTO("2","1","1",new BigDecimal("700.99"), PaymentMethod.TICKET.getId(), null, null ,StatusPayment.CANCELED.getId());
+    PaymentDTO paymentsDTO = new PaymentDTO("2","1",new BigDecimal("700.99"), PaymentMethod.TICKET.getId(), null, null ,StatusPayment.CANCELED.getId());
 
 
     @BeforeEach
@@ -79,7 +79,7 @@ public class PaymentControlerTest {
         log.info("testUpdatePayment");
         this.mockMvc.perform( MockMvcRequestBuilders
                         .put("/api/payments/" + paymentsDTO.getId())
-                        .content(asJsonString(new PaymentDTO(null,"65f49a996c7faa406961ae8c","65f49a996c7faa406961ae8c",new BigDecimal("1699.99"),PaymentMethod.CARD.getId(), null, null,StatusPayment.PAID.getId())))
+                        .content(asJsonString(new PaymentDTO(null,"65f49a996c7faa406961ae8c",new BigDecimal("1699.99"),PaymentMethod.CARD.getId(), null, null,StatusPayment.PAID.getId())))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())

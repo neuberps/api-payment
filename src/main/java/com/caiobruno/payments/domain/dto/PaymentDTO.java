@@ -18,20 +18,15 @@ public class PaymentDTO {
     private String id;
 
     @NotBlank
-    private String idProduct;
-
-    @NotBlank
     private String idUser;
 
     @NotNull
     private BigDecimal value;
 
-
     private String paymentMethod;
 
     private String created;
     private String updated;
-
 
     private String status;
 

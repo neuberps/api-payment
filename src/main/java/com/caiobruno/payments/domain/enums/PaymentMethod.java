@@ -7,6 +7,8 @@ public enum PaymentMethod {
     TICKET("3", "Boleto"),
     CASH("4", "Dinheiro");
 
+
+
     private  String id;
     private  String name;
 

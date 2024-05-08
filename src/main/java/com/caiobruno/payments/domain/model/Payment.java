@@ -18,7 +18,6 @@ import java.math.BigDecimal;
 public class Payment {
 
     private String id;
-    private String idProduct;
     private String idUser;
     private BigDecimal value;
     private String paymentMethod;

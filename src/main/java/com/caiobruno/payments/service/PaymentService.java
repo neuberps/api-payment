@@ -53,7 +53,6 @@ public class PaymentService {
         Payment entity = repository.findById(id).get();
 
         entity.setIdUser(paymentDTO.getIdUser());
-        entity.setIdProduct(paymentDTO.getIdProduct());
         entity.setValue(paymentDTO.getValue());
         entity.setPaymentMethod(paymentDTO.getPaymentMethod());
         entity.setUpdated(LocalDateTime.now().toString());
