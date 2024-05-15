@@ -1,7 +1,10 @@
 package com.caiobruno.payments.controller;
 
 import com.caiobruno.payments.domain.dto.PaymentDTO;
+import com.caiobruno.payments.domain.dto.PaymentMethodDTO;
+import com.caiobruno.payments.domain.dto.StatusPaymentDTO;
 import com.caiobruno.payments.domain.model.Payment;
+import com.caiobruno.payments.exceptions.PaymentNotFoundException;
 import com.caiobruno.payments.exceptions.ServiceException;
 import com.caiobruno.payments.service.PaymentService;
 import jakarta.validation.Valid;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/payments")
 public class PaymentControler {
@@ -53,7 +57,7 @@ public class PaymentControler {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PaymentDTO> update(@PathVariable String id,@Valid @RequestBody  PaymentDTO paymentDTO) {
+    public ResponseEntity<PaymentDTO> update(@PathVariable String id, @Valid @RequestBody PaymentDTO paymentDTO) {
         try {
             PaymentDTO updatedClient = service.update(id, paymentDTO);
             return ResponseEntity.ok(updatedClient);
@@ -72,4 +76,47 @@ public class PaymentControler {
         }
     }
 
+    @GetMapping("/statuspayment/{code}")
+    public ResponseEntity<List<PaymentDTO>> findByStatus(@PathVariable String code) {
+        try {
+            List<PaymentDTO> categories = service.findByStatus(code);
+            if (categories.isEmpty()) {
+                return ResponseEntity.noContent().build();
+            }
+            return ResponseEntity.ok(categories);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @GetMapping("/methodpayment/{code}")
+    public ResponseEntity<List<PaymentDTO>> findByMethod(@PathVariable String code) {
+        try {
+            List<PaymentDTO> categories = service.findByMethod(code);
+            if (categories.isEmpty()) {
+                return ResponseEntity.noContent().build();
+            }
+            return ResponseEntity.ok(categories);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @GetMapping("/liststauspayments")
+    public ResponseEntity<List<StatusPaymentDTO>> statusPaymentslist() {
+        try {
+            return ResponseEntity.ok(service.listStatusPayment());
+        } catch (ServiceException e) {
+             throw new PaymentNotFoundException("Lista vazia");
+        }
+    }
+
+    @GetMapping("/listpaymentMethod")
+    public ResponseEntity<List<PaymentMethodDTO>> paymentMetodList() {
+        try {
+            return ResponseEntity.ok(service.listMethodPayment());
+        } catch (ServiceException e) {
+            throw new PaymentNotFoundException("Lista vazia");
+        }
+    }
 }

@@ -2,29 +2,26 @@ package com.caiobruno.payments.domain.enums;
 
 public enum PaymentMethod {
 
-    CARD(1),
-    PIX(2),
-    TICKET(3);
+    CARD("1", "Cartão de crédito"),
+    PIX("2", "PIX"),
+    TICKET("3", "Boleto"),
+    CASH("4", "Dinheiro");
 
 
-    private int code ;
 
-    private PaymentMethod(int code ) {
-        this.code = code;
+    private  String id;
+    private  String name;
+
+    PaymentMethod(String id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
-
-    public int getCode() {
-        return code ;
-
+    public String getId() {
+        return id;
     }
 
-    public static PaymentMethod  valueOf(int code ) {
-        for (PaymentMethod value : PaymentMethod.values()) {
-            if(value.getCode() == code ) {
-                return value;
-            }
-        }
-        throw new IllegalArgumentException("Invalid order Satatus code");
+    public String getName() {
+        return name;
     }
 }
