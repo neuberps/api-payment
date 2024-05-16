@@ -3,35 +3,38 @@ package com.caiobruno.payments.config;
 import com.caiobruno.payments.domain.model.Payment;
 import com.caiobruno.payments.repository.PaymentRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ResourceUtils;
 
-import java.io.File;
-
+import java.io.IOException;
+import java.io.InputStream;
 
 @Component
 public class DatabaseInitializer implements CommandLineRunner {
 
-    private final PaymentRepository repository;
+    @Autowired
+    private  PaymentRepository repository;
+    @Autowired
+    private  ResourceLoader resourceLoader;
 
-    public DatabaseInitializer(PaymentRepository repository) {
-        this.repository = repository;
-    }
 
     @Override
     public void run(String... args) throws Exception {
-
         ObjectMapper mapper = new ObjectMapper();
 
+        Resource resource = resourceLoader.getResource("classpath:payments.json");
+        try (InputStream inputStream = resource.getInputStream()) {
+            Payment[] payments = mapper.readValue(inputStream, Payment[].class);
 
-        File file = ResourceUtils.getFile("classpath:payments.json");
-        Payment[] payments = mapper.readValue(file, Payment[].class);
-
-
-        for (Payment payment : payments) {
-            repository.save(payment);
+            for (Payment payment : payments) {
+                repository.save(payment);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
-
 }
