@@ -20,8 +20,7 @@ public class DatabaseInitializer implements CommandLineRunner {
     private  PaymentRepository repository;
     @Autowired
     private  ResourceLoader resourceLoader;
-
-
+    
     @Override
     public void run(String... args) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
